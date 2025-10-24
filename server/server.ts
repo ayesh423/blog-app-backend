@@ -1,11 +1,11 @@
 // server/src/server.ts
 import express, { Request, Response } from 'express';
-import connectDB from './db';
+
 import dotenv from 'dotenv';
 import cors from 'cors'; // Important for connecting frontend and backend
 
 dotenv.config();
-connectDB(); // Connect to MongoDB
+
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies
