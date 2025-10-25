@@ -1,23 +1,20 @@
-// server/src/server.ts
-import express, { Request, Response } from 'express';
+import Express from "express";
+import e, { json } from "express"; // Import json middleware from express
+import "dotenv/config";          // Correctly configure dotenv
+import dbconnect from "./src/db/db";
+import rootRoute from "./src/db/route";
 
-import dotenv from 'dotenv';
-import cors from 'cors'; // Important for connecting frontend and backend
+console.log(process.env.MONGO_URL);
+const server = Express();
 
-dotenv.config();
+// It should be PORT, not POST
+const PORT = process.env.PORT || 4001; 
 
+server.use(json()); 
+server.use("/api/v1/",rootRoute)
 
-const app = express();
-app.use(express.json()); // Middleware to parse JSON request bodies
-app.use(cors()); // Enable CORS for React frontend
-
-// Basic route
-app.get('/', (req: Request, res: Response) => {
-  res.send('API is running...');
-});
-
-// TODO: Add your routes and controller logic here
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+ dbconnect.then(()=>{
+  console.log('db conneected');
+  server.listen(PORT,()=> console.log(`server is running ... on the PORT ${PORT}`));
+ })
+ .catch((e)=>console.log(e));

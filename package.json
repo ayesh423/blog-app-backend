@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node server/server.ts",
-    "dev": "nodemon --exec ts-node server/server.ts",
+    "start": "ts-node --transpileOnly --module commonjs server/server.ts",
+    "dev": "nodemon --exec ts-node --transpileOnly server/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
